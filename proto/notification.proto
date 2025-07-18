@@ -1,0 +1,97 @@
+//Lenh de generate code:
+/*
+Cai package va tao thu muc
+
+npm install ts-proto --save-dev
+chmod +x ./node_modules/.bin/protoc-gen-ts_proto
+mkdir -p src/generated/
+
+npx protoc \
+  --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto \
+  --ts_proto_out=./src/generated \
+  --ts_proto_opt=outputServices=grpc-js,enumAsLiteral=false,stringEnums=false \
+  --proto_path=./proto \
+  --experimental_allow_proto3_optional \
+  ./proto/notification.proto
+
+
+*/
+
+syntax = "proto3";
+
+package notification;
+
+import "notification_enum.proto";
+
+service NotificationService {
+    rpc GetNotifications (GetNotificationsRequest) returns (GetNotificationsResponse) {};
+    rpc CreateNotification (CreateNotificationRequest) returns (CreateNotificationResponse) {};
+    rpc DeleteNotification (DeleteNotificationsRequest) returns (DeleteNotificationsResponse) {};
+    rpc MarkAsReadNotification (MarkAsReadNotificationRequest) returns (MarkAsReadotificationResponse) {};
+    rpc MarkAsReadNotifications (MarkAsReadNotificationsRequest) returns (MarkAsReadotificationsResponse) {};
+}
+
+message Notification {
+    string id = 1;
+    string postId = 2;
+    string creatorId = 3;
+    string creatorAvtUrl = 4;
+    string receiverId = 5;
+    notification_enum.NotificationType notifType = 6;
+    string message = 7;
+    bool isRead = 8;
+    string createdAt = 9;
+    string deletedAt = 10;
+}
+
+message GetNotificationsRequest {
+    string userId = 1;
+}
+
+message GetNotificationsResponse {
+    repeated Notification notifications = 1;
+}
+
+message CreateNotificationRequest {
+    string postId = 2;
+    string creatorId = 3;
+    string creatorAvtUrl = 4;
+    string receiverId = 5;
+    notification_enum.NotificationType notifType = 6;
+    string message = 7;
+}
+
+message CreateNotificationResponse {
+    Notification notifications = 1;
+}
+
+message DeleteNotificationsRequest {
+    string id = 1;
+}
+
+message DeleteNotificationsResponse {
+    Notification notifications = 1;
+}
+
+message MarkAsReadNotificationRequest {
+    string id = 1;
+}
+
+message MarkAsReadotificationResponse {
+    Notification notification = 1;
+}
+
+message MarkAsReadNotificationsRequest {
+    repeated string ids = 1;
+}
+
+message MarkAsReadotificationsResponse {
+    repeated Notification notifications = 1;
+}
+
+// enum NotificationType {
+//     NOTIFICATION_TYPE_UNSPECIFIED = 0;
+//     LIKE = 1;
+//     COMMENT = 2;
+//     SHARE = 3;
+// }
