@@ -5,7 +5,7 @@ package chat;
 import "chat_enum.proto";
 import "shared_message.proto";
 
-service NotificationService {
+service ChatService {
     rpc GetListConversation (GetListConversationRequest) returns (GetListConversationResponse) {};
     rpc GetConversation (GetConversationRequest) returns (GetConversationResponse) {};
     rpc CreateConversation (CreateConversationRequest) returns (CreateConversationResponse) {};

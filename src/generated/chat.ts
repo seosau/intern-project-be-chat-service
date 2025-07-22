@@ -873,7 +873,7 @@ export const SendMessageResponse: MessageFns<SendMessageResponse> = {
   },
 };
 
-export interface NotificationServiceClient {
+export interface ChatServiceClient {
   getListConversation(request: GetListConversationRequest): Observable<GetListConversationResponse>;
 
   getConversation(request: GetConversationRequest): Observable<GetConversationResponse>;
@@ -883,7 +883,7 @@ export interface NotificationServiceClient {
   sendMessage(request: SendMessageRequest): Observable<SendMessageResponse>;
 }
 
-export interface NotificationServiceController {
+export interface ChatServiceController {
   getListConversation(
     request: GetListConversationRequest,
   ): Promise<GetListConversationResponse> | Observable<GetListConversationResponse> | GetListConversationResponse;
@@ -901,27 +901,27 @@ export interface NotificationServiceController {
   ): Promise<SendMessageResponse> | Observable<SendMessageResponse> | SendMessageResponse;
 }
 
-export function NotificationServiceControllerMethods() {
+export function ChatServiceControllerMethods() {
   return function (constructor: Function) {
     const grpcMethods: string[] = ["getListConversation", "getConversation", "createConversation", "sendMessage"];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcMethod("NotificationService", method)(constructor.prototype[method], method, descriptor);
+      GrpcMethod("ChatService", method)(constructor.prototype[method], method, descriptor);
     }
     const grpcStreamMethods: string[] = [];
     for (const method of grpcStreamMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(constructor.prototype, method);
-      GrpcStreamMethod("NotificationService", method)(constructor.prototype[method], method, descriptor);
+      GrpcStreamMethod("ChatService", method)(constructor.prototype[method], method, descriptor);
     }
   };
 }
 
-export const NOTIFICATION_SERVICE_NAME = "NotificationService";
+export const CHAT_SERVICE_NAME = "ChatService";
 
-export type NotificationServiceService = typeof NotificationServiceService;
-export const NotificationServiceService = {
+export type ChatServiceService = typeof ChatServiceService;
+export const ChatServiceService = {
   getListConversation: {
-    path: "/chat.NotificationService/GetListConversation",
+    path: "/chat.ChatService/GetListConversation",
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: GetListConversationRequest): Buffer =>
@@ -932,7 +932,7 @@ export const NotificationServiceService = {
     responseDeserialize: (value: Buffer): GetListConversationResponse => GetListConversationResponse.decode(value),
   },
   getConversation: {
-    path: "/chat.NotificationService/GetConversation",
+    path: "/chat.ChatService/GetConversation",
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: GetConversationRequest): Buffer =>
@@ -943,7 +943,7 @@ export const NotificationServiceService = {
     responseDeserialize: (value: Buffer): GetConversationResponse => GetConversationResponse.decode(value),
   },
   createConversation: {
-    path: "/chat.NotificationService/CreateConversation",
+    path: "/chat.ChatService/CreateConversation",
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: CreateConversationRequest): Buffer =>
@@ -954,7 +954,7 @@ export const NotificationServiceService = {
     responseDeserialize: (value: Buffer): CreateConversationResponse => CreateConversationResponse.decode(value),
   },
   sendMessage: {
-    path: "/chat.NotificationService/SendMessage",
+    path: "/chat.ChatService/SendMessage",
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: SendMessageRequest): Buffer => Buffer.from(SendMessageRequest.encode(value).finish()),
@@ -964,7 +964,7 @@ export const NotificationServiceService = {
   },
 } as const;
 
-export interface NotificationServiceServer extends UntypedServiceImplementation {
+export interface ChatServiceServer extends UntypedServiceImplementation {
   getListConversation: handleUnaryCall<GetListConversationRequest, GetListConversationResponse>;
   getConversation: handleUnaryCall<GetConversationRequest, GetConversationResponse>;
   createConversation: handleUnaryCall<CreateConversationRequest, CreateConversationResponse>;
