@@ -19,3 +19,4 @@ export const UPLOAD_IMAGE_TYPE = {
 
 
 export const QUEUE_CHAT_NAME = 'queue_chat_name'
+export const SEND_MESSAGE_CHAT_JOB_NAME = 'send_message_chat_job_name'

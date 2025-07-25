@@ -1,5 +1,5 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { RegisterQueueAsyncOptions, SharedBullAsyncConfiguration } from '@nestjs/bullmq';
+import { RegisterQueueOptions, SharedBullAsyncConfiguration } from '@nestjs/bullmq';
 import { QUEUE_CHAT_NAME } from '../chat/bullmq/chat.bull.constants';
 
 export const bullMQConfig: SharedBullAsyncConfiguration = {
@@ -11,8 +11,9 @@ export const bullMQConfig: SharedBullAsyncConfiguration = {
             port: config.get<number>('REDIS_PORT'),
             password: config.get<string>('REDIS_PASSWORD'),
             username: config.get<string>('REDIS_USERNAME'),
-            tls: {},
-            maxRetriesPerRequest: 1000000,
+            //Bat tls khi chay redis host 
+            // tls: {},
+            maxRetriesPerRequest: null,
         }
         console.log(connectData)
         return {
@@ -21,26 +22,6 @@ export const bullMQConfig: SharedBullAsyncConfiguration = {
     }
 }
 
-export const queueAsyncConfig: RegisterQueueAsyncOptions = {
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: (configService: ConfigService) => {
-    // const queueName = configService.get('QUEUE_CHAT_NAME');
-    // console.log('QUEUE_CHAT_NAME =', queueName); // <-- LOG
-
-    return {
-      name: QUEUE_CHAT_NAME, // cần đảm bảo queueName không undefined
-    };
-  },
-};
-
-
-
-
-export const updateChatByUserQueueAsyncConfig: RegisterQueueAsyncOptions = {
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: (consfigService: ConfigService) => ({
-    name: QUEUE_CHAT_NAME
-  })
+export const queueConfig: RegisterQueueOptions = {
+  name: QUEUE_CHAT_NAME,
 }

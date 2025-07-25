@@ -3,7 +3,7 @@ import { ChatModule } from './chat/chat.module';
 import { PrismaModule } from './configs/prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { BullModule } from '@nestjs/bullmq';
-import { bullMQConfig, queueAsyncConfig } from './configs/bullMQ.config';
+import { bullMQConfig } from './configs/bullMQ.config';
 
 @Module({
   imports: [
@@ -13,7 +13,6 @@ import { bullMQConfig, queueAsyncConfig } from './configs/bullMQ.config';
       isGlobal: true,
     }),
     BullModule.forRootAsync(bullMQConfig),
-    BullModule.registerQueueAsync(queueAsyncConfig)
   ],
   controllers: [],
   providers: [],
